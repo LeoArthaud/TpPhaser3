@@ -1,5 +1,5 @@
 'use strict';
-
+let HGscore = 0;
 let game;
 
 // objet avec les variables globales
@@ -48,6 +48,10 @@ class playGame extends Phaser.Scene{
        
     }
 
+        //score
+        this.score = 0;
+        this.scoreText = this.add.text(20, 20,'current score: '+this.score, this.style);
+        this.HGscoreText = this.add.text(20, 40, 'highest score: '+  HGscore, this.style);
         // plateformes actives
         this.platformGroup = this.add.group({
 
@@ -85,6 +89,8 @@ class playGame extends Phaser.Scene{
         this.input.keyboard.on('keydown_UP', this.jump, this);
         this.input.keyboard.on('keydown_Z', this.jump, this);
     update(){
+        this.scoreF();
+
         // recyclage des platforms
         let minDistance = game.config.width;
         this.platformGroup.getChildren().forEach(function(platform){
@@ -116,6 +122,14 @@ class playGame extends Phaser.Scene{
             this.playerJumps ++;
         }
     }
+
+    scoreF(){
+        //incrementation du score
+        this.score += 1;
+        //affichage du score
+        this.scoreText.setText('score: '+this.score);
+    }
+
     // ajout/creation des plateformes
     addPlatform(platformWidth, posX){
         let platform;

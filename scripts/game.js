@@ -47,12 +47,14 @@ class playGame extends Phaser.Scene{
         this.load.audio("jump", 'ressources/sound/jump.wav');
 
     }
+    create(){
 
         //score
         this.score = 0;
         this.scoreText = this.add.text(20, 20,'current score: '+this.score, this.style);
         this.HGscoreText = this.add.text(20, 40, 'highest score: '+  HGscore, this.style);
         // this.pauseText = this.add.text(40,20, 'Press Esc to pause', this.style);
+
         // plateformes actives
         this.platformGroup = this.add.group({
 
@@ -94,6 +96,7 @@ class playGame extends Phaser.Scene{
         //this.input.keyboard.on('keydown_ESC', this.pause);
 
     }
+
     update(){
         this.scoreF();
 
@@ -129,9 +132,9 @@ class playGame extends Phaser.Scene{
 
     }
 
-    //pause(){
-    //    this.scene.launch('pauseGame');
-    //}
+    // pause(){
+    //     this.scene.launch('pauseGame');
+    // }
 
     //gestion saut
     jump(){

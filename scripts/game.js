@@ -65,14 +65,25 @@ class playGame extends Phaser.Scene{
                 platform.scene.platformGroup.add(platform)
             }
         });
+
+        // init le compteur de saut
+        this.playerJumps = 0;
+
         // ajout des platformes, prends en param largeur et  position X
         this.addPlatform(game.config.width, game.config.width / 2);
 
         // création du joueur;
         this.player = this.physics.add.sprite(gameOptions.playerStartPosition, game.config.height / 2, "player");
         this.player.setGravityY(gameOptions.playerGravity);
+
         // collision entre le joueur et le groupe de platform
         this.physics.add.collider(this.player, this.platformGroup);
+
+        // les touches pour sauter
+        this.input.on('pointerdown', this.jump, this);
+        this.input.keyboard.on('keydown_SPACE', this.jump, this);
+        this.input.keyboard.on('keydown_UP', this.jump, this);
+        this.input.keyboard.on('keydown_Z', this.jump, this);
     update(){
         // recyclage des platforms
         let minDistance = game.config.width;
@@ -94,6 +105,17 @@ class playGame extends Phaser.Scene{
 
     }
 
+    //gestion saut
+    jump(){
+        if(this.player.body.touching.down || (this.playerJumps > 0 && this.playerJumps < gameOptions.jumps)){
+            if(this.player.body.touching.down){
+                this.playerJumps = 0;
+            }
+            this.sound.play('jump');
+            this.player.setVelocityY(gameOptions.jumpForce * -1);
+            this.playerJumps ++;
+        }
+    }
     // ajout/creation des plateformes
     addPlatform(platformWidth, posX){
         let platform;

@@ -45,7 +45,7 @@ class playGame extends Phaser.Scene{
         this.load.image("player", "ressources/graphics/player.png");
         this.load.audio("gameover", 'ressources/sound/gameover.wav');
         this.load.audio("jump", 'ressources/sound/jump.wav');
-       
+
     }
 
         //score
@@ -133,6 +133,13 @@ class playGame extends Phaser.Scene{
             this.player.setVelocityY(gameOptions.jumpForce * -1);
             this.playerJumps ++;
         }
+    }
+
+    //protoype de fonction de rotation au saut, marche pas est fais planter le navigateur apres quelques secondes
+    rotateJump(){
+        let value = this.player.angle + 45;
+        while (!(this.player.body.touching.down)|| this.player.angle < value)
+            this.player.angle +=10;
     }
 
     scoreF(){

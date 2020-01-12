@@ -1,6 +1,11 @@
 
 # TP Phaser 3 - "CubeRush"
-npm install / nom start required
+
+requis
+npm install http-server
+
+pour lancher
+http-server
 
 Léo ARTHAUD
 Macha JUMELIN 

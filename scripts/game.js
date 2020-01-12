@@ -20,10 +20,19 @@ class playGame extends Phaser.Scene{
        
     }
 
-    }
-    create(){
+        // plateformes actives
+        this.platformGroup = this.add.group({
 
-    }
+            // après être sortie du groupe actif, les plateformes sont envoyées dans le pool
+            removeCallback: function(platform){
+                platform.scene.platformPool.add(platform)
+            }
+        });
+
+        // pool de plateformes
+        this.platformPool = this.add.group({
+
+            }
 
     update(){
 

@@ -28,8 +28,12 @@ window.onload = function() {
         physics: {
             default: "arcade"
         }
-};
+    };
     game = new Phaser.Game(gameConfig);
+    window.focus();
+    resize();
+    window.addEventListener("resize", resize, false);
+};
 
 
 // playGame scene
@@ -60,6 +64,7 @@ class playGame extends Phaser.Scene{
             removeCallback: function(platform){
                 platform.scene.platformGroup.add(platform)
             }
+        });
         // ajout des platformes, prends en param largeur et  position X
         this.addPlatform(game.config.width, game.config.width / 2);
 
@@ -120,5 +125,22 @@ class playGame extends Phaser.Scene{
         }
         platform.displayWidth = platformWidth;
         this.nextPlatformDistance = Phaser.Math.Between(gameOptions.spawnRange[0], gameOptions.spawnRange[1]);
+    }
+}
+
+//pour bonne adaptation avec le navigateur
+function resize(){
+    let canvas = document.querySelector("canvas");
+    let windowWidth = window.innerWidth;
+    let windowHeight = window.innerHeight;
+    let windowRatio = windowWidth / windowHeight;
+    let gameRatio = game.config.width / game.config.height;
+    if(windowRatio < gameRatio){
+        canvas.style.width = windowWidth + "px";
+        canvas.style.height = (windowWidth / gameRatio) + "px";
+    }
+    else{
+        canvas.style.width = (windowHeight * gameRatio) + "px";
+        canvas.style.height = windowHeight + "px";
     }
 }

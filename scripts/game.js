@@ -15,8 +15,21 @@ let gameOptions = {
 
 window.onload = function() {
 
+    // objet de configuration
+    let gameConfig = {
+        type: Phaser.AUTO,
+        width: 1334,
+        height: 750,
+        scene: playGame,
+        backgroundColor: 0x414045,
+        style: { font: '20px Arial', fill: '#fff' },
 
+        // physique
+        physics: {
+            default: "arcade"
+        }
 };
+    game = new Phaser.Game(gameConfig);
 
 
 // playGame scene
@@ -50,6 +63,11 @@ class playGame extends Phaser.Scene{
         // ajout des platformes, prends en param largeur et  position X
         this.addPlatform(game.config.width, game.config.width / 2);
 
+        // création du joueur;
+        this.player = this.physics.add.sprite(gameOptions.playerStartPosition, game.config.height / 2, "player");
+        this.player.setGravityY(gameOptions.playerGravity);
+        // collision entre le joueur et le groupe de platform
+        this.physics.add.collider(this.player, this.platformGroup);
     update(){
         // recyclage des platforms
         let minDistance = game.config.width;

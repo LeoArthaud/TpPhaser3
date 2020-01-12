@@ -91,6 +91,18 @@ class playGame extends Phaser.Scene{
     update(){
         this.scoreF();
 
+        //game over
+        if(this.player.y > game.config.height){
+            this.sound.play('gameover')
+            this.scene.restart("PlayGame");
+
+            if(HGscore<this.score){
+                HGscore = this.score;
+                this.scoreText.setText('score: '+this.score);
+            }
+        }
+        this.player.x = gameOptions.playerStartPosition;
+
         // recyclage des platforms
         let minDistance = game.config.width;
         this.platformGroup.getChildren().forEach(function(platform){
